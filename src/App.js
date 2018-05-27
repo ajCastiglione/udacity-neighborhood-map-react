@@ -3,14 +3,6 @@ import Locations from './components/Locations';
 
 export default class App extends Component {
 
-    constructor() {
-        super();
-        // retain object instance when used in the function
-        this.initMap = this.initMap.bind(this);
-        this.openInfoWindow = this.openInfoWindow.bind(this);
-        this.closeInfoWindow = this.closeInfoWindow.bind(this);
-    }
-
     state = {
         POIs: [
             {
@@ -62,7 +54,7 @@ export default class App extends Component {
     }
 
     /* Initialize the map once the script is loaded */
-    initMap() {
+    initMap = () => {
         var self = this;
         
         let mapview = document.getElementById('map');
@@ -78,7 +70,7 @@ export default class App extends Component {
         this.setState({ map: map, infowindow: InfoWindow });
 
         window.google.maps.event.addListener(InfoWindow, 'closeclick', function () {
-            self.closeInfoWindow();
+            self.closeMarkerWindow();
         });
 
         window.google.maps.event.addDomListener(window, "resize", function () {
@@ -88,7 +80,7 @@ export default class App extends Component {
         });
 
         window.google.maps.event.addListener(map, 'click', function () {
-            self.closeInfoWindow();
+            self.closeMarkerWindow();
         });
 
         let allLocations = [];
@@ -101,7 +93,7 @@ export default class App extends Component {
             });
 
             marker.addListener('click', function () {
-                self.openInfoWindow(marker);
+                self.openMarkerWindow(marker);
             });
 
             location.longname = longname;
@@ -113,8 +105,8 @@ export default class App extends Component {
     }
 
     /* Open the infowindow for the selected marker */
-    openInfoWindow (marker) {
-        this.closeInfoWindow();
+    openMarkerWindow = (marker) => {
+        this.closeMarkerWindow();
         this.state.infowindow.open(this.state.map, marker);
         marker.setAnimation(window.google.maps.Animation.BOUNCE);
         this.setState({ prevmarker: marker });
@@ -157,7 +149,7 @@ export default class App extends Component {
     }
 
     /* Close the infowindow */
-    closeInfoWindow () {
+    closeMarkerWindow = () => {
         if (this.state.prevmarker) {
             this.state.prevmarker.setAnimation(null);
         }
@@ -171,8 +163,8 @@ export default class App extends Component {
 
                 <Locations 
                 POIs={this.state.POIs} 
-                openInfoWindow={this.openInfoWindow}
-                closeInfoWindow={this.closeInfoWindow}
+                openMarkerWindow={this.openMarkerWindow}
+                closeMarkerWindow={this.closeMarkerWindow}
                 />
 
                 <div id="map"></div>

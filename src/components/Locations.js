@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import SingleLocation from './SingleLocation';
 
-export default class AllLocations extends Component {
+export default class Locations extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -16,7 +16,7 @@ export default class AllLocations extends Component {
 
     /* Filters locations based on user input */
     filterLocations(event) {
-        this.props.closeInfoWindow();
+        this.props.closeMarkerWindow();
         const {value} = event.target;
         let locations = [];
         this.props.POIs.forEach(function (location) {
@@ -48,7 +48,7 @@ export default class AllLocations extends Component {
 
         let locationlist = this.state.locations.map(function (listItem, index) {
             return (
-                <SingleLocation key={index} openInfoWindow={this.props.openInfoWindow.bind(this)} data={listItem}/>
+                <SingleLocation key={index} openMarkerWindow={this.props.openMarkerWindow} data={listItem}/>
             );
         }, this);
 

@@ -8,10 +8,10 @@ export default class SingleLocation extends Component {
 
             <li 
             role="button" 
-            className="box" 
+            className="btn" 
             tabIndex="0" 
-            onKeyPress={this.props.openInfoWindow.bind(this, this.props.data.marker)} 
-            onClick={this.props.openInfoWindow.bind(this, this.props.data.marker)}
+            onKeyPress={this.props.openMarkerWindow.bind(this, this.props.data.marker)} 
+            onClick={this.props.openMarkerWindow.bind(this, this.props.data.marker)}
             >
 
             {this.props.data.longname}

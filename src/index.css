@@ -8,11 +8,14 @@ body {
   z-index: 99;
   position: fixed;
   top: 5px;
-  left: 5px;
+  right: 5px;
+  border: 3px inset #269abc;
+  max-width: 308px;
 }
 
 .search-field {
-  width: 320px;
+  width: 95%;
+  max-width: 320px;
   padding: 5px;
 }
 
@@ -26,12 +29,17 @@ ul {
   overflow: auto;
 }
 
-.box {
+.btn {
   cursor: pointer;
   padding: 5px;
 }
 
-.box:hover {
+.btn:focus {
+  background: #269abc;
+  color: #fff;
+}
+
+.btn:hover {
   background-color: #269abc;
   color: #fff;
 }
@@ -42,7 +50,7 @@ ul {
   background-color: white;
   border: 1px darkgrey solid;
   cursor: pointer;
-  width: 334px;
+  width: 100%;
 }
 
 .learn-more-btn {
