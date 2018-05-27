@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {places} from './components/PointsOfInterest'
+import { places } from './components/PointsOfInterest'
 import Locations from './components/Locations';
 
 export default class App extends Component {
@@ -23,6 +23,7 @@ export default class App extends Component {
         var self = this;
         
         let mapview = document.getElementById('map');
+        // Easiest way to make the map take up the full screen.
         mapview.style.height = window.innerHeight + "px";
         const map = new window.google.maps.Map(mapview, {
             center: {lat: 42.9892679, lng: -78.6867633},
