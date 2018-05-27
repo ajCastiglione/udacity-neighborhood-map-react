@@ -65,7 +65,7 @@ export default class AllLocations extends Component {
                 <ul>
                     {this.state.suggestions ? locationlist : null}
                 </ul>
-                <button className="button" onClick={this.toggleSuggestions}>Show/Hide Suggestions</button>
+                <button className="button" onClick={this.toggleSuggestions}>{this.state.suggestions === true ? 'Hide' : 'Show'} Suggestions</button>
             </div>
         );
     }
