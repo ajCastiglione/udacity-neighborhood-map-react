@@ -50,7 +50,7 @@ export default class App extends Component {
         // Connect the initMap() function within this class to the global window context
         window.initMap = this.initMap;
         // Initialize the maps script, passing in the url
-        loadMap('https://maps.googleapis.com/maps/api/js?key=AIzaSyDqE8dflRzjIvF4EyTxmOjZQFJxBEUaNWM&callback=initMap')
+        loadMap('https://maps.googleapis.com/maps/api/js?key=AIzaSyDqE8dflRzjIvF4EyTxmOjZQFJxBEUaNWM&callback=initMap');
     }
 
     /* Initialize the map once the script is loaded */
@@ -112,7 +112,6 @@ export default class App extends Component {
         this.setState({ prevmarker: marker });
         this.state.infowindow.setContent('Loading Data...');
         this.state.map.setCenter(marker.getPosition());
-        this.state.map.panBy(0, -200);
         this.getMarkerInfo(marker);
     }
 
@@ -148,7 +147,7 @@ export default class App extends Component {
             });
     }
 
-    /* Close the infowindow */
+    /* Close the marker window */
     closeMarkerWindow = () => {
         if (this.state.prevmarker) {
             this.state.prevmarker.setAnimation(null);

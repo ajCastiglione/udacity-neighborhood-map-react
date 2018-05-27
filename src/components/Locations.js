@@ -38,12 +38,13 @@ export default class Locations extends Component {
         this.setState({locations: this.props.POIs});
     }
 
-    /* Funcction to toggle suggestions */
+    /* Toggles suggestions box */
     toggleSuggestions() {
         this.setState({ suggestions: !this.state.suggestions });
     }
 
     render() {
+        
         if(this.state.locations) {
 
         let locationlist = this.state.locations.map(function (listItem, index) {
@@ -59,7 +60,7 @@ export default class Locations extends Component {
                 <ul>
                     {this.state.suggestions ? locationlist : null}
                 </ul>
-                <button className="button" onClick={this.toggleSuggestions}>{this.state.suggestions === true ? 'Hide' : 'Show'} Suggestions</button>
+                <button className="button" onClick={this.toggleSuggestions}>{this.state.suggestions ? 'Hide' : 'Show'} Suggestions</button>
             </div>
         );
 

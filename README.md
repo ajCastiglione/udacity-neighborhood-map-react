@@ -10,12 +10,13 @@ This is a single page application bootstrapped with create-react-app that displa
 <li>If the window does not automatically open, navigate to localhost:3000 to view the project.</li>
 </ol>
 
-## Features of this SPA
+## Dependencies
 
 <ul>
-<li>Type into the search box to filter the locations.</li>
-<li>Click anywhere on the map to close the info window.</li>
-<li>Click on any marker to see the location details gathered from the FourSquare's API.</li>
+<li>Google Maps API</li>
+<li>FourSquare API</li>
+<li>create-react-app</li>
+<li>React</li>
 </ul>
 
 ## Deployment
