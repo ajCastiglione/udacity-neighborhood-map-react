@@ -14,14 +14,12 @@ export default class AllLocations extends Component {
         this.toggleSuggestions = this.toggleSuggestions.bind(this);
     }
 
-    /**
-     * Filter Locations based on user query
-     */
+    /* Filters locations based on user input */
     filterLocations(event) {
         this.props.closeInfoWindow();
         const {value} = event.target;
         let locations = [];
-        this.props.allLocations.forEach(function (location) {
+        this.props.POIs.forEach(function (location) {
             if (location.longname.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
                 location.marker.setVisible(true);
                 locations.push(location);
@@ -37,21 +35,17 @@ export default class AllLocations extends Component {
     }
 
     componentWillMount () {
-        this.setState({locations: this.props.allLocations});
+        this.setState({locations: this.props.POIs});
     }
 
-    /**
-     * Show and hide suggestions
-     */
+    /* Funcction to toggle suggestions */
     toggleSuggestions() {
         this.setState({ suggestions: !this.state.suggestions });
     }
 
-    /**
-     * Render function of LocationList
-     */
     render() {
         if(this.state.locations) {
+
         let locationlist = this.state.locations.map(function (listItem, index) {
             return (
                 <SingleLocation key={index} openInfoWindow={this.props.openInfoWindow.bind(this)} data={listItem}/>
@@ -68,13 +62,15 @@ export default class AllLocations extends Component {
                 <button className="button" onClick={this.toggleSuggestions}>{this.state.suggestions === true ? 'Hide' : 'Show'} Suggestions</button>
             </div>
         );
+
     }
         else {
-            return (
-                <div>
-                    <p>Error retrieving data, please try again</p>
-                </div>
-            )
+
+        return (
+            <div>
+                <p>Error retrieving data, please try again</p>
+            </div>
+        )
     } 
 }
 }

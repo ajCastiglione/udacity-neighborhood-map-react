@@ -12,7 +12,7 @@ export default class App extends Component {
     }
 
     state = {
-        'allLocations': [
+        POIs: [
             {
                 'name': "Brookfield Country Club",
                 'type': "Country Club",
@@ -51,23 +51,23 @@ export default class App extends Component {
         ],
         map: '',
         infowindow: '',
-         prevmarker: ''
+        prevmarker: ''
     };
 
     componentDidMount() {
         // Connect the initMap() function within this class to the global window context
         window.initMap = this.initMap;
         // Initialize the maps script, passing in the url
-        loadMapJS('https://maps.googleapis.com/maps/api/js?key=AIzaSyDqE8dflRzjIvF4EyTxmOjZQFJxBEUaNWM&callback=initMap')
+        loadMap('https://maps.googleapis.com/maps/api/js?key=AIzaSyDqE8dflRzjIvF4EyTxmOjZQFJxBEUaNWM&callback=initMap')
     }
 
-    /* Initialize the map once the google map script is loaded */
+    /* Initialize the map once the script is loaded */
     initMap() {
         var self = this;
         
         let mapview = document.getElementById('map');
         mapview.style.height = window.innerHeight + "px";
-        let map = new window.google.maps.Map(mapview, {
+        const map = new window.google.maps.Map(mapview, {
             center: {lat: 42.9892679, lng: -78.6867633},
             zoom: 14,
             mapTypeControl: false
@@ -92,7 +92,7 @@ export default class App extends Component {
         });
 
         let allLocations = [];
-        this.state.allLocations.forEach(function (location) {
+        this.state.POIs.forEach(function (location) {
             let longname = `${location.name} - ${location.type}`;
             let marker = new window.google.maps.Marker({
                 position: new window.google.maps.LatLng(location.latitude, location.longitude),
@@ -109,10 +109,10 @@ export default class App extends Component {
             location.display = true;
             allLocations.push(location);
         });
-        this.setState({ allLocations: allLocations });
+        this.setState({ POIs: allLocations });
     }
 
-    /* Open the infowindow for the marker */
+    /* Open the infowindow for the selected marker */
     openInfoWindow (marker) {
         this.closeInfoWindow();
         this.state.infowindow.open(this.state.map, marker);
@@ -130,18 +130,19 @@ export default class App extends Component {
         let id = "LZRKL1G5SVWIFW44BW5CCNYQFA1LU0DA2NRBFGTGGFYNQNW4";
         let secret = "JZJYNB3C5S3CEL0AJ2ZKRPPNDPATTJWVKHDC4W12M02UK2TW";
         let url = `https://api.foursquare.com/v2/venues/search?client_id=${id}&client_secret=${secret}&v=20130815&ll=${marker.getPosition().lat()},${marker.getPosition().lng()}&limit=1`;
+        
         fetch(url)
             .then(
                 function (response) {
                     if (response.status !== 200) {
-                        self.state.infowindow.setContent("Sorry, we encountered an error and can not load this.");
+                        self.state.infowindow.setContent(`Sorry for the delay, we encountered an error fetching this url -> ${url}. Please try again`);
                         return;
                     }
 
                     // Parse the response in json format
                     response.json().then( (data) => {
                         let location_info = data.response.venues[0],
-                        nameOfPlace = `<Strong>Location: </Strong> ${(location_info.name ? location_info.name : 'Not Listed')} <br>`,
+                        nameOfPlace = `<strong>Location: </strong> ${(location_info.name ? location_info.name : 'Not Listed')} <br>`,
                         verified = `<strong>Verified Location: </strong> ${(location_info.verified ? 'Yes' : 'No')} <br>`,
                         category = `<strong>Category: </strong>  ${location_info.categories[0].name} <br>`,
                         location_address = `<strong>Address: </strong> ${location_info.location.address} <br>`,
@@ -151,7 +152,7 @@ export default class App extends Component {
                 }
             )
             .catch(function (err) {
-                self.state.infowindow.setContent("Sorry data can't be loaded");
+                self.state.infowindow.setContent("Error loading data from API", err);
             });
     }
 
@@ -160,9 +161,7 @@ export default class App extends Component {
         if (this.state.prevmarker) {
             this.state.prevmarker.setAnimation(null);
         }
-        this.setState({
-            prevmarker: ''
-        });
+        this.setState({ prevmarker: '' });
         this.state.infowindow.close();
     }
 
@@ -171,8 +170,7 @@ export default class App extends Component {
             <main>
 
                 <Locations 
-                key="100" 
-                allLocations={this.state.allLocations} 
+                POIs={this.state.POIs} 
                 openInfoWindow={this.openInfoWindow}
                 closeInfoWindow={this.closeInfoWindow}
                 />
@@ -185,13 +183,13 @@ export default class App extends Component {
 }
 
 /* Load the map */
-function loadMapJS(src) {
-    let ref = window.document.getElementsByTagName("script")[0];
-    let script = window.document.createElement("script");
+function loadMap(src) {
+    const local = window.document.getElementsByTagName("script")[0];
+    const script = window.document.createElement("script");
     script.src = src;
     script.async = true;
     script.onerror = function () {
-        document.write("Google Maps can't be loaded");
+        document.write("Error trying to load the map, please try again.");
     };
-    ref.parentNode.insertBefore(script, ref);
+    local.parentNode.insertBefore(script, local);
 }
