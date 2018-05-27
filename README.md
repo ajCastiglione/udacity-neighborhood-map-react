@@ -21,4 +21,4 @@ This is a single page application bootstrapped with create-react-app that displa
 
 ## Deployment
 
-In order to deploy this app, run the command ``` npm run build ``` to create the product version of this SPA.
+In order to deploy this app, run the command ``` npm run build ``` to create the production version of this SPA.
