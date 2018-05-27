@@ -5,7 +5,7 @@ This is a single page application bootstrapped with create-react-app that displa
 ## How to run this project
 
 <ol>
-<li>Run the command ``` npm install ```</li>
+<li>Use the command ``` npm install ```</li>
 <li>Use the command ``` npm start ``` to launch the project in your default browser</li>
 <li>If the window does not automatically open, navigate to localhost:3000 to view the project.</li>
 </ol>
