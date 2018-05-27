@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Locations from './Locations';
+import Locations from './components/Locations';
 
 export default class App extends Component {
 
