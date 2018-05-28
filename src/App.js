@@ -14,8 +14,11 @@ export default class App extends Component {
     componentDidMount() {
         // Connect the initMap() function within this class to the global window context
         window.initMap = this.initMap;
+        // Connecting the auth failure to the window context
+        window.gm_authFailure = this.gm_authFailure;
         // Initialize the maps script, passing in the url
         loadMap('https://maps.googleapis.com/maps/api/js?key=AIzaSyDqE8dflRzjIvF4EyTxmOjZQFJxBEUaNWM&callback=initMap');
+        
     }
 
     /* Initialize the map once the script is loaded */
@@ -68,6 +71,15 @@ export default class App extends Component {
             allLocations.push(location);
         });
         this.setState({ POIs: allLocations });
+    }
+
+    // Error handler for when google maps cannot be loaded.
+    gm_authFailure = () => {
+        let errClass = "maps-error";
+        let errContent = "Sorry, we could not load the google maps api. Please try again.";
+        let el = document.getElementById('map');
+        el.classList.add(errClass);
+        el.innerHTML = errContent;
     }
 
     /* Open the infowindow for the selected marker */
@@ -150,3 +162,4 @@ function loadMap(src) {
     };
     local.parentNode.insertBefore(script, local);
 }
+
