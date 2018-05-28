@@ -9,13 +9,10 @@ export default class Locations extends Component {
             query: '',
             suggestions: true,
         };
-
-        this.filterLocations = this.filterLocations.bind(this);
-        this.toggleSuggestions = this.toggleSuggestions.bind(this);
     }
 
     /* Filters locations based on user input */
-    filterLocations(event) {
+    filterLocations = (event) => {
         this.props.closeMarkerWindow();
         const {value} = event.target;
         let locations = [];
@@ -39,7 +36,7 @@ export default class Locations extends Component {
     }
 
     /* Toggles suggestions box */
-    toggleSuggestions() {
+    toggleSuggestions = () => {
         this.setState({ suggestions: !this.state.suggestions });
     }
 
