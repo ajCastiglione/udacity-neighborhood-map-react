@@ -25,14 +25,11 @@ export default class Locations extends Component {
             }
         });
 
-        this.setState({
-            locations: locations,
-            query: value
-        });
+        this.setState({ locations: locations, query: value });
     }
 
     componentWillMount () {
-        this.setState({locations: this.props.POIs});
+        this.setState({ locations: this.props.POIs });
     }
 
     /* Toggles suggestions box */
@@ -44,23 +41,24 @@ export default class Locations extends Component {
         
         if(this.state.locations) {
 
-        let locationlist = this.state.locations.map(function (listItem, index) {
-            return (
-                <SingleLocation key={index} openMarkerWindow={this.props.openMarkerWindow} data={listItem}/>
-            );
-        }, this);
-
         return (
             <div className="search">
                 <input role="search" aria-labelledby="filter" id="search-field" className="search-field" type="text" placeholder="Filter the list"
                        value={this.state.query} onChange={this.filterLocations}/>
                 <ul>
-                    {this.state.suggestions ? locationlist : null}
+                    {
+                        this.state.suggestions ? 
+
+                        this.state.locations.map((listItem, index) => (
+                            <SingleLocation key={index} openMarkerWindow={this.props.openMarkerWindow} data={listItem}/>
+                        ))
+                        : 
+                        null
+                    }
                 </ul>
                 <button className="button" onClick={this.toggleSuggestions}>{this.state.suggestions ? 'Hide' : 'Show'} Suggestions</button>
             </div>
         );
-
     }
         else {
 
